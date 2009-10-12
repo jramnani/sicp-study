@@ -60,14 +60,14 @@
   [a b]
   (if (= b 0)
     a
-    (gcd b (unchecked-remainder a b))))
+    (gcd b (rem a b))))
 
 ; Section 1.2.6
 ; Procedures for determining whether an integer is a prime number.
 ; This algorithm has an order of O(sqrt n).
 (defn divides?
   [a b]
-  (= (unchecked-remainder b a) 0))
+  (= (rem b a) 0))
 
 (defn find-divisor
   [n test-divisor]
@@ -89,8 +89,8 @@
   [base exp m]
   (cond
     (= exp 0) 1
-    (even? exp) (unchecked-remainder (square (expmod base (/ exp 2) m)) 
+    (even? exp) (rem (square (expmod base (/ exp 2) m))
                                      m)
-    :else (unchecked-remainder (* base (expmod base (- exp 1) m))
+    :else (rem (* base (expmod base (- exp 1) m))
                                m)))
 
