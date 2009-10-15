@@ -15,6 +15,7 @@
 ; }}}
 
 ; Test some inputs
+(println "Linear Recursion Results:")
 (println (f 1))
 (println (f 4))
 (println (f 5))
@@ -22,4 +23,27 @@
 (println (f 20))
 
 ; Iterative solution
+; Given addition of f(n - 1) + 2f(n - 2) + 3f(n - 3)
+; we can notice that the value of n shifts downward to the right.
+; Hence, what was 'a' in one iteration can be shifted to the right 
+; and substituded for 'b' in the next, and the value of 'b' can 
+; be substituted for the 'c'.  The previous value of 'c' can roll
+; off since we don't need it any more.
+(defn f2-iter
+  [a b c counter]
+  (cond
+    (< counter 3) a 
+    :else (f2-iter (+ a (* 2 b) (* 3 c)) a b (dec counter))))
 
+(defn f2
+  [n]
+  (if (< n 3) 
+    n
+    (f2-iter 2 1 0 n)))
+
+(println "Iterative Recursion Results:")
+(println (f2 1))
+(println (f2 4))
+(println (f2 5))
+(println (f2 10))
+(println (f2 20))
