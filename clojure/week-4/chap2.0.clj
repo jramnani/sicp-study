@@ -9,9 +9,18 @@
 ; Since 'cdr'/'rest' returns a list, instead of just the second item 
 ; in a pair, use clojure's 'last' to mimic the functionality.
 
+;
+; The Greatest Common Divisor procedure from Section 1.2.5
+(defn gcd
+  [a b]
+  (if (= b 0)
+    a
+    (gcd b (rem a b))))
+
 (defn make-rat
   [n d]
-  (list n d))
+  (let [g (gcd n d)]
+    (list (/ n g) (/ d g))))
 
 (defn numer
   [x]
