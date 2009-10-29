@@ -54,6 +54,8 @@
 
 (def start (make-point 1 2))
 (def end (make-point 2 4))
+(println "Points and Segments")
+(println "-------------------")
 (println "Start Point:" start)
 (println "End Point:" end)
 (def my-segment (make-segment start end))
@@ -70,6 +72,7 @@
 ; design your system with suitable abstraction barriers, so that the same 
 ; perimeter and area procedures will work using either representation?
 
+; Length and width as a pair of numbers.
 (defn make-rect
   [length width]
   (list length width))
@@ -90,10 +93,47 @@
   [rect]
   (* (rect-length rect) (rect-width rect)))
 
+; Tests
 (def my-rect (make-rect 2 4))
+(println)
+(println "Rectangle as two numbers")
+(println "------------------------")
 (println "Length: " (rect-length my-rect))
 (println "Width: " (rect-width my-rect))
 (println "Perimeter: " (rect-perimeter my-rect))
 (println "Area: " (rect-area my-rect))
 
-; This seems wrong. Must improve it. Using points and segments?
+
+; Rectangle as two segments, length and width.
+
+; length of a segment
+; end-x - start-x
+; end-y - start-y
+(defn segment-distance
+  [seg]
+  (+ (- (x-point (end-segment seg)) (x-point (start-segment seg)))
+     (- (y-point (end-segment seg)) (y-point (start-segment seg)))))
+
+(defn make-rect2
+  [s1 s2]
+  (let [length (segment-distance s1)
+        width (segment-distance s2)]
+    (list length width)))
+
+; Tests for rectangle as two segments.
+; No changes had to be made in the procedures for area and permimeter.
+(def start-len (make-point 0 0))
+(def end-len (make-point 0 2))
+(def start-wid (make-point 0 0))
+(def end-wid (make-point 0 4))
+(def len (make-segment start-len end-len))
+(def wid (make-segment start-wid end-wid))
+(def my-rect (make-rect2 len wid))
+(println)
+(println "Rectangle as two segments")
+(println "-------------------------")
+(println "Rectangle:" my-rect)
+(println "Length: " (rect-length my-rect))
+(println "Width: " (rect-width my-rect))
+(println "Perimeter: " (rect-perimeter my-rect))
+(println "Area: " (rect-area my-rect))
