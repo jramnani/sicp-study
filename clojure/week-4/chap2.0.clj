@@ -1,4 +1,5 @@
 ; Procedures that define rational numbers.
+;
 ; The book uses 'cons' to construct a 'pair' who's contents are the 
 ; numerator and the denominator.
 ;
@@ -72,3 +73,7 @@
 (print-rat (add-rat one-half one-third)) ; 5 / 6
 (print-rat (mul-rat one-half one-third)) ; 1 / 6
 (print-rat (add-rat one-third one-third)) ; 6 / 9
+
+; Test negative rational numbers
+(print-rat (make-rat -4 10))
+(print-rat (make-rat -4 -10))
