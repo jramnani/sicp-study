@@ -107,6 +107,10 @@
                        (rest remaining))))]
   (iter initial my-seq)))
 
+(defn flatmap
+  [proc my-seq]
+  (accumulate append nil (map proc my-seq)))
+
 ; Tests
 
 (def squares (list 1 4 9 16 25))
